@@ -1,3 +1,9 @@
+## FORK CHANGES
+
+Contains changes to handle Reolinks' People, Animal and Vehicle detection. Tested with Reolink RLC-510WA, E1 Pro and E1 Zoom.
+
+##
+
 > :warning: **Unmaintained**: Due to lack of time, this project is currently not maintained. We are searching for active contributors / maintainers. If interested, please message @dmitrif
 
 # ONVIF2MQTT
