@@ -7,19 +7,38 @@ const NAMESPACE_DELIMITER = ':';
 
 export const CALLBACK_TYPES = {
   motion: 'onMotionDetected',
+  motionRegion: 'onMotionRegionDetected',
+  motionVideo: 'onMotionVideoDetected',
+  people: 'onPeopleDetected',
+  animal: 'onAnimalDetected',
+  vehicle: 'onVehicleDetected',
+//  face: 'onFaceDetected',
+//  visitor: 'onVisitorDetected',
 };
 
 const EVENTS = {
-  'RuleEngine/MotionRegionDetector/Motion': CALLBACK_TYPES.motion,
-  'RuleEngine/MotionRegionDetector/Motion//.': CALLBACK_TYPES.motion,
+  'RuleEngine/MotionRegionDetector/Motion': CALLBACK_TYPES.motionRegion,
+  'RuleEngine/MotionRegionDetector/Motion//.': CALLBACK_TYPES.motionRegion,
   'RuleEngine/CellMotionDetector/Motion': CALLBACK_TYPES.motion,
   'RuleEngine/CellMotionDetector/Motion//.': CALLBACK_TYPES.motion,
-  'VideoSoure/MotionAlarm': CALLBACK_TYPES.motion,
-  'VideoSource/MotionAlarm': CALLBACK_TYPES.motion
+  'VideoSoure/MotionAlarm': CALLBACK_TYPES.motionVideo,
+  'VideoSource/MotionAlarm': CALLBACK_TYPES.motionVideo,
+  'RuleEngine/MyRuleDetector/PeopleDetect': CALLBACK_TYPES.people,
+  'RuleEngine/MyRuleDetector/DogCatDetect': CALLBACK_TYPES.animal,
+  'RuleEngine/MyRuleDetector/VehicleDetect': CALLBACK_TYPES.vehicle,
+//  'RuleEngine/MyRuleDetector/FaceDetect': CALLBACK_TYPES.face,
+//  'RuleEngine/MyRuleDetector/Visitor': CALLBACK_TYPES.visitor,
 };
 
 const DEFAULT_CALLBACKS = {
   [CALLBACK_TYPES.motion]: NO_OP,
+  [CALLBACK_TYPES.motionRegion]: NO_OP,
+  [CALLBACK_TYPES.motionVideo]: NO_OP,
+  [CALLBACK_TYPES.people]: NO_OP,
+  [CALLBACK_TYPES.animal]: NO_OP,
+  [CALLBACK_TYPES.vehicle]: NO_OP,
+//  [CALLBACK_TYPES.face]: NO_OP,
+//  [CALLBACK_TYPES.visitor]: NO_OP,
 };
 
 export default class SubscriberGroup {
