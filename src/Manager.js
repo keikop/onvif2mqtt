@@ -38,6 +38,11 @@ export default class Manager {
     this.subscriber.destroy();
     this.initializeOnvifDevices(this.config.get('onvif'));
     this.subscriber.withCallback(CALLBACK_TYPES.motion, this.onMotionDetected);
+    this.subscriber.withCallback(CALLBACK_TYPES.motionRegion, this.onMotionRegionDetected);
+    this.subscriber.withCallback(CALLBACK_TYPES.motionVideo, this.onMotionVideoDetected);
+    this.subscriber.withCallback(CALLBACK_TYPES.people, this.onPeopleDetected);
+    this.subscriber.withCallback(CALLBACK_TYPES.animal, this.onAnimalDetected);
+    this.subscriber.withCallback(CALLBACK_TYPES.vehicle, this.onVehicleDetected);
   };
 
   initializeOnvifDevices = devices => {
@@ -76,6 +81,46 @@ export default class Manager {
   /* Event Callbacks */
   onMotionDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
     const topicKey = 'motion';
+    const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
+
+    this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
+    this.publisher.publish(onvifDeviceId, topicKey, convertBooleanToSensorState(boolMotionState));
+  });
+
+  onMotionRegionDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
+    const topicKey = 'motion_region';
+    const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
+
+    this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
+    this.publisher.publish(onvifDeviceId, topicKey, convertBooleanToSensorState(boolMotionState));
+  });
+
+  onMotionVideoDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
+    const topicKey = 'motion_video';
+    const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
+
+    this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
+    this.publisher.publish(onvifDeviceId, topicKey, convertBooleanToSensorState(boolMotionState));
+  });
+
+  onPeopleDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
+    const topicKey = 'people';
+    const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
+
+    this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
+    this.publisher.publish(onvifDeviceId, topicKey, convertBooleanToSensorState(boolMotionState));
+  });
+
+  onAnimalDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
+    const topicKey = 'animal';
+    const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
+
+    this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
+    this.publisher.publish(onvifDeviceId, topicKey, convertBooleanToSensorState(boolMotionState));
+  });
+
+  onVehicleDetected = debounceStateUpdate((onvifDeviceId, motionState) => {
+    const topicKey = 'vehicle';
     const boolMotionState = motionState.IsMotion !== undefined ? motionState.IsMotion : motionState.State;
 
     this.publishTemplates(onvifDeviceId, topicKey, boolMotionState);
